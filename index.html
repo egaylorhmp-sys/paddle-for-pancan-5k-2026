@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Paddle for PanCAN 5K — 7th Annual — Chattanooga, TN — 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --purple-deep: #1e0a35;
+    --purple-mid: #4a1875;
+    --purple-bright: #7b35c1;
+    --purple-light: #c4a0e8;
+    --cream: #f5ead8;
+    --cream-dark: #e8d9be;
+    --gold: #c9a84c;
+    --text-body: #2a1040;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--purple-deep);
+    color: var(--cream);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.25rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(30,10,53,0.95) 0%, transparent 100%);
+  }
+  .nav-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    color: var(--cream);
+    text-transform: uppercase;
+    text-decoration: none;
+    opacity: 0.8;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-decoration: none;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 4rem 6rem 5rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(4rem, 7vw, 7rem);
+    font-weight: 900;
+    line-height: 0.9;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--purple-light);
+  }
+
+  .hero-subtitle {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    color: var(--cream);
+    opacity: 0.5;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.55s forwards;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.7s forwards;
+  }
+  .hero-meta-line {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: var(--cream);
+    opacity: 0.7;
+  }
+  .hero-meta-line strong { color: var(--gold); font-weight: 600; }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.85s forwards;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: var(--gold);
+    color: var(--purple-deep);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--cream); transform: translateY(-2px); }
+
+  .btn-ghost {
+    display: inline-block;
+    padding: 1rem 2rem;
+    border: 1px solid rgba(245,234,216,0.3);
+    color: var(--cream);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--cream); transform: translateY(-2px); }
+
+  /* hero right — water scene SVG + photo overlay */
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-photo {
+    position: absolute;
+    inset: 0;
+    background: url('https://images.squarespace-cdn.com/content/v1/5e6e4fa080da441d9dd8527e/9eb6d6ab-4967-4033-a208-b671beff0aec/BAF1940C-CB7C-4B19-89E4-283EFECD3374.jpeg') center/cover no-repeat;
+    opacity: 0.35;
+  }
+  .hero-photo-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, var(--purple-deep) 0%, transparent 30%),
+                linear-gradient(to top, var(--purple-deep) 0%, transparent 40%);
+  }
+  .hero-year {
+    position: absolute;
+    bottom: 3rem;
+    right: 3rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 10rem;
+    font-weight: 900;
+    color: var(--purple-mid);
+    opacity: 0.25;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  /* scroll indicator */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 1.2s forwards;
+  }
+  .scroll-line {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.5;
+  }
+  .scroll-hint span {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    opacity: 0.4;
+  }
+
+  /* ── STATS BAND ── */
+  .stats-band {
+    background: var(--gold);
+    padding: 1.5rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+  }
+  .stat {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--purple-deep);
+  }
+  .stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--purple-deep);
+    opacity: 0.7;
+  }
+  .stat-divider {
+    width: 1px;
+    height: 2.5rem;
+    background: var(--purple-deep);
+    opacity: 0.2;
+  }
+
+  /* ── PURPOSE SECTION ── */
+  .section-purpose {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 80vh;
+  }
+  .purpose-left {
+    background: var(--cream);
+    padding: 7rem 5rem;
+    color: var(--text-body);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+  .purpose-left .section-label { color: var(--purple-mid); }
+  .purpose-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 2.2vw, 2rem);
+    font-weight: 700;
+    font-style: italic;
+    line-height: 1.45;
+    color: var(--purple-deep);
+    margin-bottom: 2rem;
+    border-left: 3px solid var(--gold);
+    padding-left: 2rem;
+  }
+  .purpose-body {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-body);
+    opacity: 0.75;
+  }
+  .purpose-right {
+    background: var(--purple-mid);
+    padding: 7rem 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .purpose-right::before {
+    content: '5K';
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: 20rem;
+    font-weight: 900;
+    color: rgba(255,255,255,0.04);
+    right: -2rem;
+    bottom: -4rem;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .detail-block { position: relative; z-index: 1; }
+  .detail-block .section-label { color: var(--purple-light); margin-bottom: 0.75rem; }
+  .detail-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 0.75rem;
+  }
+  .detail-body {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--cream);
+    opacity: 0.7;
+  }
+  .detail-body strong { color: var(--gold); font-weight: 600; opacity: 1; }
+  .detail-divider {
+    width: 40px;
+    height: 1px;
+    background: var(--purple-light);
+    opacity: 0.3;
+  }
+
+  /* ── RACE INFO ── */
+  .section-race {
+    background: var(--purple-deep);
+    padding: 7rem 5rem;
+  }
+  .race-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid rgba(245,234,216,0.1);
+    padding-bottom: 2rem;
+  }
+  .race-header .section-label { color: var(--gold); }
+  .race-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 900;
+    color: var(--cream);
+  }
+  .race-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(245,234,216,0.08);
+    border: 1px solid rgba(245,234,216,0.08);
+  }
+  .race-card {
+    background: var(--purple-deep);
+    padding: 3rem 2.5rem;
+    transition: background 0.3s;
+  }
+  .race-card:hover { background: rgba(74,24,117,0.4); }
+  .race-card-icon {
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+    opacity: 0.6;
+  }
+  .race-card-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .race-card-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
+  }
+  .race-card-sub {
+    font-size: 0.875rem;
+    color: var(--cream);
+    opacity: 0.5;
+    line-height: 1.5;
+  }
+
+  /* ── DIVISIONS ── */
+  .section-divisions {
+    background: var(--cream);
+    padding: 7rem 5rem;
+    color: var(--text-body);
+  }
+  .section-divisions .section-label { color: var(--purple-mid); margin-bottom: 3rem; }
+  .divisions-header {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3.5rem);
+    font-weight: 900;
+    color: var(--purple-deep);
+    margin-bottom: 1rem;
+    max-width: 600px;
+  }
+  .divisions-sub {
+    font-size: 1rem;
+    color: var(--text-body);
+    opacity: 0.6;
+    margin-bottom: 4rem;
+    max-width: 500px;
+    line-height: 1.7;
+  }
+  .divisions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .division-card {
+    background: var(--cream-dark);
+    padding: 3rem 2.5rem;
+    border-top: 3px solid var(--purple-mid);
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .division-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+  .division-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: var(--purple-light);
+    opacity: 0.4;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .division-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--purple-deep);
+    margin-bottom: 0.5rem;
+  }
+  .division-desc {
+    font-size: 0.875rem;
+    color: var(--text-body);
+    opacity: 0.6;
+    line-height: 1.6;
+  }
+
+  /* ── FUNDRAISE ── */
+  .section-fundraise {
+    background: var(--purple-mid);
+    padding: 6rem 5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+  .fundraise-left .section-label { color: var(--purple-light); margin-bottom: 1.5rem; }
+  .fundraise-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3.5rem);
+    font-weight: 900;
+    color: var(--cream);
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+  }
+  .fundraise-body {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--cream);
+    opacity: 0.7;
+    margin-bottom: 2.5rem;
+  }
+  .fundraise-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .fundraise-perk {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    padding: 1.75rem;
+    background: rgba(255,255,255,0.05);
+    border-left: 2px solid var(--gold);
+    transition: background 0.2s;
+  }
+  .fundraise-perk:hover { background: rgba(255,255,255,0.09); }
+  .perk-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 2rem;
+    text-align: center;
+  }
+  .perk-text strong {
+    display: block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--cream);
+    margin-bottom: 0.25rem;
+  }
+  .perk-text span {
+    font-size: 0.875rem;
+    color: var(--cream);
+    opacity: 0.55;
+  }
+
+  /* ── EQUIPMENT ── */
+  .section-equipment {
+    background: var(--purple-deep);
+    padding: 7rem 5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+  .equipment-photo {
+    position: relative;
+    overflow: hidden;
+  }
+  .equipment-photo img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.7);
+    opacity: 0.8;
+  }
+  .equipment-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(245,234,216,0.1);
+    pointer-events: none;
+  }
+  .equipment-right .section-label { color: var(--gold); margin-bottom: 1.5rem; }
+  .equipment-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 3rem);
+    font-weight: 900;
+    color: var(--cream);
+    margin-bottom: 1.5rem;
+    line-height: 1.15;
+  }
+  .equipment-body {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--cream);
+    opacity: 0.65;
+    margin-bottom: 2.5rem;
+  }
+  .equipment-contact {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+    padding-bottom: 0.25rem;
+    transition: border-color 0.2s;
+  }
+  .equipment-contact:hover { border-color: var(--gold); }
+
+  /* ── DONATE CTA ── */
+  .section-donate {
+    background: var(--cream);
+    padding: 8rem 5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .section-donate::before {
+    content: 'PanCAN';
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: 18rem;
+    font-weight: 900;
+    color: rgba(74,24,117,0.04);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .donate-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--purple-mid);
+    margin-bottom: 1.5rem;
+  }
+  .donate-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    font-weight: 900;
+    color: var(--purple-deep);
+    margin-bottom: 1.5rem;
+    line-height: 1.05;
+    position: relative;
+  }
+  .donate-body {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text-body);
+    opacity: 0.65;
+    max-width: 520px;
+    margin: 0 auto 3rem;
+    position: relative;
+  }
+  .donate-ctas {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    position: relative;
+  }
+
+  .footer-left {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: var(--cream);
+    opacity: 0.35;
+  }
+  .footer-left strong { opacity: 1; color: var(--gold); }
+  .footer-verse {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.8rem;
+    color: var(--cream);
+    opacity: 0.2;
+    max-width: 340px;
+    text-align: right;
+    line-height: 1.6;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1.25rem 2rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 7rem 2rem 4rem; }
+    .stats-band { padding: 1.5rem 2rem; flex-wrap: wrap; gap: 1rem; }
+    .section-purpose, .section-fundraise, .section-equipment { grid-template-columns: 1fr; }
+    .purpose-left, .purpose-right, .section-race, .section-divisions,
+    .section-fundraise, .section-equipment, .section-donate { padding: 4rem 2rem; }
+    .race-grid, .divisions-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2rem; }
+    .footer-verse { text-align: center; }
+    .race-header { flex-direction: column; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Paddle for PanCAN</a>
+  <ul class="nav-links">
+    <li><a href="#race">Race Info</a></li>
+    <li><a href="#divisions">Divisions</a></li>
+    <li><a href="#fundraise">Fundraise</a></li>
+    <li><a href="#equipment">Equipment</a></li>
+    <li><a href="#donate">Donate</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">7th Annual &nbsp;·&nbsp; Chattanooga, TN &nbsp;·&nbsp; September 19, 2026</p>
+    <h1 class="hero-title">Paddle<br/><em>for</em><br/>PanCAN</h1>
+    <p class="hero-subtitle" style="animation: fadeUp 0.8s 0.55s both; opacity: 0;">5K</p>
+    <div class="hero-meta" style="animation: fadeUp 0.8s 0.7s both; opacity: 0;">
+      <span class="hero-meta-line"><strong>September 19, 2026</strong> &nbsp;·&nbsp; 10am – 12pm EDT</span>
+      <span class="hero-meta-line">Suck Creek Boat Launch &nbsp;·&nbsp; Out &amp; back to Williams Island</span>
+      <span class="hero-meta-line"><strong>$40 registration</strong> — register by Aug 20 to guarantee T-shirt</span>
+    </div>
+    <div class="hero-ctas" style="animation: fadeUp 0.8s 0.85s both; opacity: 0;">
+      <a href="https://www.eventbrite.com/e/paddle-for-pancan-2026-registration-1988795515925" class="btn-primary" target="_blank">Register Now</a>
+      <a href="https://gofund.me/03bb2043" class="btn-ghost" target="_blank">Donate</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-photo"></div>
+    <div class="hero-photo-overlay"></div>
+    <div class="hero-year">2026</div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Scroll to explore</span>
+  </div>
+</section>
+
+<!-- STATS BAND -->
+<div class="stats-band">
+  <div class="stat">
+    <span class="stat-num">7th</span>
+    <span class="stat-label">Annual event on<br/>the Tennessee River</span>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="stat">
+    <span class="stat-num">90%</span>
+    <span class="stat-label">5-year mortality<br/>rate of PanCAN</span>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="stat">
+    <span class="stat-num">$46K+</span>
+    <span class="stat-label">Raised over<br/>6 years</span>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="stat">
+    <span class="stat-num">$40</span>
+    <span class="stat-label">Registration — 100%<br/>goes to PanCAN</span>
+  </div>
+</div>
+
+<!-- PURPOSE -->
+<section class="section-purpose" id="about">
+  <div class="purpose-left">
+    <p class="section-label">Why We Paddle</p>
+    <blockquote class="purpose-quote">
+      "More than 158 mothers, daughters, fathers, sons, husbands, wives, sisters, brothers — who will hear the dreaded news every single day."
+    </blockquote>
+    <p class="purpose-body">
+      Pancreatic cancer takes 90 percent of its victims within five years and kills more people than breast cancer in the United States. It is the third leading cause of cancer-related death. We paddle to change those numbers — every stroke, every dollar, every year.
+    </p>
+  </div>
+  <div class="purpose-right">
+    <div class="detail-block">
+      <p class="section-label">The Course</p>
+      <h3 class="detail-heading">Out &amp; Back to Williams Island</h3>
+      <p class="detail-body">Launch from <strong>1907 Suck Creek Road</strong>, paddle 1.5 miles upriver to scenic Williams Island, then return for the finish. Kayak, paddleboard, tandem kayak, or canoe — all welcome.</p>
+    </div>
+    <div class="detail-divider"></div>
+    <div class="detail-block">
+      <p class="section-label">After the Race</p>
+      <h3 class="detail-heading">Post-Race Lunch at River Drifters</h3>
+      <p class="detail-body">Stick around and celebrate with fellow paddlers at <strong>River Drifters</strong> — a post-race tradition that brings the whole community together.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RACE INFO -->
+<section class="section-race" id="race">
+  <div class="race-header">
+    <p class="section-label">Race Details</p>
+    <h2 class="race-title">Everything You Need<br/>to Know</h2>
+  </div>
+  <div class="race-grid">
+    <div class="race-card">
+      <div class="race-card-icon">📅</div>
+      <p class="race-card-label">Date</p>
+      <p class="race-card-value">Saturday<br/>September 19, 2026</p>
+      <p class="race-card-sub">10:00 AM – 12:00 PM EDT<br/>Doors open 9:15 AM</p>
+    </div>
+    <div class="race-card">
+      <div class="race-card-icon">📍</div>
+      <p class="race-card-label">Location</p>
+      <p class="race-card-value">Suck Creek<br/>Boat Launch</p>
+      <p class="race-card-sub">1907 Suck Creek Road<br/>Chattanooga, TN 37401</p>
+    </div>
+    <div class="race-card">
+      <div class="race-card-icon">🎽</div>
+      <p class="race-card-label">Registration</p>
+      <p class="race-card-value">$40<br/>Per Paddler</p>
+      <p class="race-card-sub">100% to PanCAN · Register by<br/><strong style="color:var(--gold)">Aug 20</strong> to guarantee T-shirt &amp; raffle</p>
+    </div>
+    <div class="race-card">
+      <div class="race-card-icon">🛶</div>
+      <p class="race-card-label">Craft Allowed</p>
+      <p class="race-card-value">Kayak · SUP<br/>Tandem · Canoe</p>
+      <p class="race-card-sub">All paddle craft welcome<br/>Free parking on-site</p>
+    </div>
+    <div class="race-card">
+      <div class="race-card-icon">🏁</div>
+      <p class="race-card-label">Distance</p>
+      <p class="race-card-value">3.1 Miles<br/>Out &amp; Back</p>
+      <p class="race-card-sub">1.5 mi upriver to Williams Island,<br/>1.5 mi back to finish</p>
+    </div>
+    <div class="race-card">
+      <div class="race-card-icon">🍔</div>
+      <p class="race-card-label">Post-Race</p>
+      <p class="race-card-value">Lunch at<br/>River Drifters</p>
+      <p class="race-card-sub">Celebrate with the community<br/>after the finish</p>
+    </div>
+  </div>
+</section>
+
+<!-- DIVISIONS -->
+<section class="section-divisions" id="divisions">
+  <p class="section-label">Competition</p>
+  <h2 class="divisions-header">Three Divisions.<br/>One River. One Cause.</h2>
+  <p class="divisions-sub">Fastest time wins each division. All participants are eligible for raffle prizes donated by Chattanooga local businesses.</p>
+  <div class="divisions-grid">
+    <div class="division-card">
+      <div class="division-num">01</div>
+      <p class="division-name">Adult Male</p>
+      <p class="division-desc">Open to all male paddlers. Solo kayak, SUP, or canoe. Timed from launch to finish.</p>
+    </div>
+    <div class="division-card">
+      <div class="division-num">02</div>
+      <p class="division-name">Adult Female</p>
+      <p class="division-desc">Open to all female paddlers. Solo kayak, SUP, or canoe. Timed from launch to finish.</p>
+    </div>
+    <div class="division-card">
+      <div class="division-num">03</div>
+      <p class="division-name">Tandem</p>
+      <p class="division-desc">Two-person craft. Any gender combination. Tandem kayak or canoe only.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FUNDRAISE -->
+<section class="section-fundraise" id="fundraise">
+  <div class="fundraise-left">
+    <p class="section-label">Team Fundraising</p>
+    <h2 class="fundraise-title">Paddle Together.<br/>Fight Together.</h2>
+    <p class="fundraise-body">
+      Build a team, raise money for the Pancreatic Cancer Action Network, and leave a mark on the 2026 shirt. In six years this community has raised <strong style="color:var(--cream);opacity:1">$46,000+</strong> — let's push further this year.
+    </p>
+    <a href="https://gofund.me/03bb2043" class="btn-primary" target="_blank" style="align-self: flex-start;">Start Fundraising</a>
+  </div>
+  <div class="fundraise-right">
+    <div class="fundraise-perk">
+      <div class="perk-num">1</div>
+      <div class="perk-text">
+        <strong>Donate at gofund.me/03bb2043</strong>
+        <span>Add your team name in the donation comment to make sure your contribution counts toward your team's total.</span>
+      </div>
+    </div>
+    <div class="fundraise-perk">
+      <div class="perk-num">2</div>
+      <div class="perk-text">
+        <strong>Top 3 teams on the T-shirt</strong>
+        <span>The three highest-fundraising teams will have their names printed on the back of the official 2026 event shirt.</span>
+      </div>
+    </div>
+    <div class="fundraise-perk">
+      <div class="perk-num">3</div>
+      <div class="perk-text">
+        <strong>100% of entry fees benefit PanCAN</strong>
+        <span>Every dollar of your $40 registration goes directly to the Pancreatic Cancer Action Network's research and patient services.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EQUIPMENT -->
+<section class="section-equipment" id="equipment">
+  <div class="equipment-photo">
+    <img src="https://images.squarespace-cdn.com/content/v1/5e6e4fa080da441d9dd8527e/1598908447636-VM79EQ9W5JF81QY2VRG4/IMG_0253.JPG" alt="Paddlers on the Tennessee River"/>
+  </div>
+  <div class="equipment-right">
+    <p class="section-label">No Gear? No Problem.</p>
+    <h2 class="equipment-title">We'll Help You<br/>Get on the Water.</h2>
+    <p class="equipment-body">
+      Don't own a kayak or stand-up paddleboard? Reach out and we'll connect you with our partner kayak companies in Chattanooga who can help get you equipped for race day.
+    </p>
+    <a href="mailto:paddle4pancan@gmail.com" class="equipment-contact">
+      paddle4pancan@gmail.com &nbsp;→
+    </a>
+  </div>
+</section>
+
+<!-- DONATE CTA -->
+<section class="section-donate" id="donate">
+  <p class="donate-eyebrow">Support the Mission</p>
+  <h2 class="donate-title">Can't Paddle?<br/>Still Make Waves.</h2>
+  <p class="donate-body">
+    Any donation to the Pancreatic Cancer Action Network helps fund research, clinical initiatives, and support for patients and families fighting this disease. Over six years this community has raised $46,000+ — help us go further.
+  </p>
+  <div class="donate-ctas">
+    <a href="https://www.eventbrite.com/e/paddle-for-pancan-2026-registration-1988795515925" class="btn-primary" target="_blank">Register to Race</a>
+    <a href="https://gofund.me/03bb2043" class="btn-ghost" style="color: var(--purple-deep); border-color: rgba(30,10,53,0.25);" target="_blank">Donate to PanCAN</a>
+  </div>
+</section>
+
+</body>
+</html>
